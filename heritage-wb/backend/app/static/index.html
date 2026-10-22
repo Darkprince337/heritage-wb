@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heritage of West Bengal</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;700&family=Hind+Siliguri:wght@400;600&display=swap">
+<style>
+:root{--bg:#e9eee9;--card:#f7f9f6;--ink:#1b2a28;--mute:#58675f;--line:#c5d0c8}
+@media(prefers-color-scheme:dark){:root{--bg:#121b19;--card:#1a2624;--ink:#e6ede8;--mute:#9baba3;--line:#2f403c}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 "Hind Siliguri",system-ui,sans-serif;display:flex;flex-direction:column}
+h1,h2{font-family:Spectral,Georgia,serif;margin:0;line-height:1.15}
+header{padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(22px,3.5vw,32px)}
+.lang button,.chip,.btn{font:inherit;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.lang button{padding:3px 12px}
+.lang button[aria-pressed=true],.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+main{flex:1;min-height:0;display:grid;grid-template-columns:1fr minmax(320px,430px)}
+#map{height:100%;min-height:300px}
+aside{overflow-y:auto;padding:14px 16px 30px}
+@media(max-width:800px){main{grid-template-columns:1fr;grid-template-rows:45vh 1fr}}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
+.chip{font-size:14px;padding:2px 11px;border-radius:20px}
+.chip i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.btn{padding:6px 14px}
+input[type=search],#ask{font:inherit;width:100%;padding:8px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.time{background:var(--card);border:1px solid var(--line);padding:8px 12px;margin-bottom:10px}
+.time input{width:100%}
+h2{font-size:19px;margin:14px 0 6px}
+.item{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-left-width:6px;padding:8px 12px;margin-bottom:6px;cursor:pointer}
+.item small,.meta{color:var(--mute);display:block}
+.detail{background:var(--card);border:1px solid var(--line);border-left-width:6px;padding:12px 16px;margin-bottom:12px}
+.detail h2{margin:0 0 2px;font-size:24px}
+.chat{background:var(--card);border:1px solid var(--line);padding:10px 14px;margin-top:14px}
+.chat .row{display:flex;gap:6px;margin-top:6px}
+#ans{margin-top:8px;white-space:pre-wrap}
+.empty{color:var(--mute)}
+nav{display:flex;gap:6px}
+.tab{font:inherit;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:3px 14px;cursor:pointer}
+.tab[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+ol{margin:6px 0;padding-left:20px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><h1 id="ttl"></h1><nav id="nav" aria-label="Sections"><button class="tab" data-p="explore" data-k="ex"></button><button class="tab" data-p="trails" data-k="trl"></button><button class="tab" data-p="chat" data-k="chat"></button></nav><div class="lang" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="bn">বাংলা</button></div></header>
+<main>
+<div id="map" role="application" aria-label="Map of heritage sites"></div>
+<aside>
+<section data-panel="explore">
+<input type="search" id="q">
+<div class="ctl" id="cats" style="margin-top:10px"></div>
+<div class="ctl"><button class="btn" id="near"></button><span class="meta" id="nearmsg"></span></div>
+<div class="time"><label for="sl"><b id="tl"></b> <span id="tv"></span></label><input type="range" id="sl" min="0" value="0"></div>
+<div id="detail"></div>
+<div id="list"></div>
+</section>
+<section data-panel="trails" hidden><div id="trails"></div></section>
+<section data-panel="chat" hidden><div class="chat"><b id="ct"></b>
+<div class="row"><input id="ask"><button class="btn" id="go"></button></div>
+<div id="ans" aria-live="polite"></div></div></section>
+</aside>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const C={mon:{c:'#8c2f39',en:'Monasteries',bn:'মঠ ও গুম্ফা'},tem:{c:'#a9741b',en:'Temples',bn:'মন্দির'},pal:{c:'#34508c',en:'Palaces & mosques',bn:'প্রাসাদ ও মসজিদ'},col:{c:'#55666e',en:'Colonial',bn:'ঔপনিবেশিক'},arc:{c:'#4a7a45',en:'Ancient sites',bn:'প্রত্নস্থল'},nat:{c:'#1f7a8c',en:'Nature & wildlife',bn:'প্রকৃতি ও বন্যপ্রাণ'},cul:{c:'#7a4a8c',en:'Culture & museums',bn:'সংস্কৃতি ও জাদুঘর'}};
+const U={en:{t:'Heritage of West Bengal',q:'Search sites or districts',all:'All',tr:'Trails',tl:'Founded up to',list:'Sites',none:'No sites match. Clear a filter or search.',pick:'Select a site on the map or in the list.',near:'Nearest first',nearOff:'Sort by date',away:'from you',line:'straight line',you:'You are here',drive:'by road',locating:'Finding your location…',locFail:'Could not get your location.',ct:'Ask about the sites',ask:'e.g. Which monasteries are near Darjeeling?',go:'Ask',noKey:'Chat answers are off. Add ANTHROPIC_API_KEY to .env to enable them. Matching sites:',noMatch:'No matching sites found.',src:'Sources:',cond:'Condition reports',err:'Could not reach the server.',km:'km',ex:'Explore',trl:'Trails',chat:'Ask',gm:'Open in Google Maps',rt:'Route from my location',show:'Show on map',hide:'Hide trail',stops:'stops',rerr:'Could not get a route.',min:'min'},
+bn:{t:'পশ্চিমবঙ্গের ঐতিহ্য',q:'স্থান বা জেলা খুঁজুন',all:'সব',tr:'ভ্রমণপথ',tl:'প্রতিষ্ঠা পর্যন্ত',list:'স্থানসমূহ',none:'কিছু মেলেনি। ফিল্টার বা অনুসন্ধান মুছুন।',pick:'মানচিত্র বা তালিকা থেকে একটি স্থান বাছুন।',near:'কাছেরটি আগে',nearOff:'সময় অনুযায়ী',away:'আপনার থেকে',line:'সরলরেখায়',you:'আপনি এখানে',drive:'সড়কপথে',locating:'আপনার অবস্থান খোঁজা হচ্ছে…',locFail:'অবস্থান পাওয়া যায়নি।',ct:'স্থানগুলি সম্পর্কে জিজ্ঞাসা করুন',ask:'যেমন: দার্জিলিংয়ের কাছে কোন মঠ আছে?',go:'জিজ্ঞাসা',noKey:'চ্যাট উত্তর বন্ধ আছে। চালু করতে .env-এ ANTHROPIC_API_KEY দিন। মিলে যাওয়া স্থান:',noMatch:'কোনো স্থান মেলেনি।',src:'সূত্র:',cond:'অবস্থার প্রতিবেদন',err:'সার্ভারে পৌঁছানো যায়নি।',km:'কিমি',ex:'অন্বেষণ',trl:'ভ্রমণপথ',chat:'জিজ্ঞাসা',gm:'গুগল ম্যাপে খুলুন',rt:'আমার অবস্থান থেকে রুট',show:'মানচিত্রে দেখান',hide:'পথ লুকান',stops:'স্থান',rerr:'রুট পাওয়া যায়নি।',min:'মিনিট'}};
+const st={l:'en',cat:'all',q:'',tr:null,up:0,sel:null,near:null};
+let S=[],T=[],detail=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const yr=y=>y==null?'':y<0?'~'+(-y)+' BCE':''+y;
+const nm=s=>st.l==='bn'&&s.name_bn?s.name_bn:s.name_en;
+const ds=s=>st.l==='bn'&&s.description_bn?s.description_bn:s.description_en;
+const api=(p,o)=>fetch(p,o).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+const map=L.map('map').setView([24.6,88.0],7);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
+const lc=L.control({position:'topleft'});lc.onAdd=()=>{const b=L.DomUtil.create('button','btn');b.textContent='◎';b.title='My location';b.style.cssText='padding:4px 9px;font-size:18px';
+b.onclick=async e=>{L.DomEvent.stopPropagation(e);try{await locate();map.flyTo(here,13)}catch(x){$('nearmsg').textContent=U[st.l].locFail}};return b};lc.addTo(map);
+const group=L.layerGroup().addTo(map),trailLayer=L.layerGroup().addTo(map),routeLayer=L.layerGroup().addTo(map),M={};
+function vis(s,i){if(i>st.up)return false;if(st.cat!=='all'&&s.category!==st.cat)return false;
+if(st.tr&&T.find(t=>t.slug===st.tr).sites.every(x=>x.slug!==s.slug))return false;
+if(st.near&&!(s.slug in st.near))return false;
+const q=st.q.trim().toLowerCase();if(q&&(s.name_en+' '+(s.name_bn||'')+' '+(s.region||'')+' '+s.description_en).toLowerCase().indexOf(q)<0)return false;return true}
+function render(){
+const u=U[st.l],vs=S.filter(vis);
+S.forEach((s,i)=>{const m=M[s.slug],on=vis(s,i);m.setTooltipContent(esc(nm(s)));
+m.setStyle({radius:st.sel===s.slug?13:8});
+if(on&&!group.hasLayer(m))group.addLayer(m);if(!on&&group.hasLayer(m))group.removeLayer(m)});
+trailLayer.clearLayers();
+if(st.tr){const t=T.find(x=>x.slug===st.tr);const pts=t.sites.map(s=>[s.lat,s.lon]);
+L.polyline(pts,{color:'#1b2a28',weight:3,dashArray:'6 6'}).addTo(trailLayer);map.fitBounds(pts,{padding:[40,40]})}
+let ls=vs;if(st.byDist&&st.near)ls=vs.slice().sort((a,b)=>st.near[a.slug]-st.near[b.slug]);
+$('list').innerHTML='<h2>'+u.list+' ('+ls.length+')</h2>'+(ls.length?ls.map(s=>'<button class="item" data-id="'+esc(s.slug)+'" style="border-left-color:'+C[s.category].c+'"><b>'+esc(nm(s))+'</b><small>'+esc(s.region)+' · '+yr(s.year_founded)+(st.near?' · '+st.near[s.slug]+' '+u.km:'')+'</small></button>').join(''):'<p class="empty">'+u.none+'</p>')}
+function showDetail(){const u=U[st.l];
+if(!detail){$('detail').innerHTML='<p class="empty">'+u.pick+'</p>';return}
+const s=detail;
+$('detail').innerHTML='<div class="detail" style="border-left-color:'+C[s.category].c+'"><h2>'+esc(nm(s))+'</h2><span class="meta">'+C[s.category][st.l]+' · '+esc(s.region)+' · '+yr(s.year_founded)+(st.near&&s.slug in st.near?' · '+st.near[s.slug]+' '+u.km+' '+u.away+' ('+u.line+')':'')+'</span><p>'+esc(ds(s))+'</p>'+routeBtns(s)
++(s.media&&s.media.length?'<p>'+s.media.map(m=>'<a href="'+esc(m.url)+'" target="_blank" rel="noopener">'+esc(m.caption||m.kind)+'</a>').join(' · ')+'</p>':'')
++(s.reports&&s.reports.length?'<h2 style="font-size:16px">'+u.cond+'</h2>'+s.reports.map(r=>'<p class="meta">'+esc(r.noted_on)+' · '+esc(r.status)+(r.notes?' · '+esc(r.notes):'')+'</p>').join(''):'')+'</div>'}
+async function pick(slug){routeLayer.clearLayers();
+if(st.sel===slug){st.sel=null;detail=null;rinfo='';render();showDetail();return}
+st.sel=slug;const s=S.find(x=>x.slug===slug);detail=s;rinfo='';render();showDetail();
+locate().then(()=>{if(st.sel===slug)route()},()=>{if(st.sel===slug)map.flyTo([s.lat,s.lon],Math.max(map.getZoom(),10))});
+try{const d=await api('/sites/'+encodeURIComponent(slug));if(st.sel===slug){detail=d;showDetail()}}catch(e){}}
+function ctl(){const u=U[st.l];
+$('cats').innerHTML='<button class="chip" data-c="all" aria-pressed="'+(st.cat==='all')+'">'+u.all+'</button>'+Object.keys(C).map(k=>'<button class="chip" data-c="'+k+'" aria-pressed="'+(st.cat===k)+'"><i style="background:'+C[k].c+'"></i>'+C[k][st.l]+'</button>').join('');
+renderTrails()}
+function renderTrails(){const u=U[st.l];
+$('trails').innerHTML=T.map(t=>{const on=st.tr===t.slug;return '<div class="detail" style="border-left-color:#1b2a28"><h2>'+esc(st.l==='bn'&&t.name_bn?t.name_bn:t.name_en)+'</h2><span class="meta">'+t.sites.length+' '+u.stops+' · ~'+Math.round(t.sites.reduce((a,s,i)=>i?a+hav([t.sites[i-1].lat,t.sites[i-1].lon],[s.lat,s.lon]):0,0))+' '+u.km+' ('+u.line+')</span><ol>'+t.sites.map((s,i)=>'<li><a href="#" data-id="'+esc(s.slug)+'">'+esc(nm(s))+'</a>'+(i?' <span class="meta" style="display:inline">+'+Math.round(hav([t.sites[i-1].lat,t.sites[i-1].lon],[s.lat,s.lon]))+' '+u.km+'</span>':'')+'</li>').join('')+'</ol><button class="btn" data-t="'+esc(t.slug)+'">'+(on?u.hide:u.show)+'</button></div>'}).join('')}
+const hav=(a,b)=>{const r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r,x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(x))};
+function setTab(t){document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==t);document.querySelectorAll('#nav .tab').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===t))}
+let here=null,meDot=null,meAcc=null,watching=false,waiters=[],rinfo='';
+function setHere(p){here=[p.coords.latitude,p.coords.longitude];const first=!st.near;st.near={};S.forEach(s=>st.near[s.slug]=Math.round(hav(here,[s.lat,s.lon])*10)/10);
+if(!meDot){meAcc=L.circle(here,{radius:p.coords.accuracy,color:'#1f6feb',weight:1,fillOpacity:.12}).addTo(map);meDot=L.circleMarker(here,{radius:8,color:'#fff',weight:3,fillColor:'#1f6feb',fillOpacity:1}).bindTooltip(U[st.l].you).addTo(map)}
+else{meDot.setLatLng(here);meAcc.setLatLng(here).setRadius(p.coords.accuracy)}
+if(first){render();showDetail()}}
+function locate(){return new Promise((ok,no)=>{if(here)return ok(here);waiters.push([ok,no]);if(watching)return;
+if(!navigator.geolocation){waiters.splice(0).forEach(w=>w[1]());return}watching=true;
+navigator.geolocation.watchPosition(p=>{setHere(p);waiters.splice(0).forEach(w=>w[0](here))},()=>{watching=false;waiters.splice(0).forEach(w=>w[1]())},{enableHighAccuracy:true,maximumAge:10000})})}
+function routeBtns(s){const u=U[st.l];return '<p><button class="btn" data-act="route">'+u.rt+'</button> <a class="btn" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+s.lat+','+s.lon+'">'+u.gm+'</a></p><p class="meta" id="rsum">'+esc(rinfo)+'</p>'}
+function setR(t){rinfo=t;const o=$('rsum');if(o)o.textContent=t}
+async function route(){const u=U[st.l],s=detail;if(!s)return;const slug=s.slug;setR(u.locating);
+try{const h=await locate();if(st.sel!==slug)return;setR('…');routeLayer.clearLayers();
+try{const r=await api('https://router.project-osrm.org/route/v1/driving/'+h[1]+','+h[0]+';'+s.lon+','+s.lat+'?overview=full&geometries=geojson');
+const rt=r.routes&&r.routes[0];if(!rt)throw 0;if(st.sel!==slug)return;const pts=rt.geometry.coordinates.map(c=>[c[1],c[0]]);
+L.polyline(pts,{color:'#1f6feb',weight:5}).addTo(routeLayer);map.fitBounds(pts,{padding:[50,50]});
+setR((rt.distance/1000).toFixed(1)+' '+u.km+' · '+Math.round(rt.duration/60)+' '+u.min+' ('+u.drive+')')}
+catch(e){if(st.sel!==slug)return;const pts=[h,[s.lat,s.lon]];L.polyline(pts,{color:'#1f6feb',weight:3,dashArray:'6 6'}).addTo(routeLayer);map.fitBounds(pts,{padding:[50,50]});setR(st.near[slug]+' '+u.km+' ('+u.line+')')}
+}catch(e){setR(u.locFail)}}
+function txt(){const u=U[st.l];document.documentElement.lang=st.l;$('ttl').textContent=u.t;document.querySelectorAll('#nav .tab').forEach(b=>b.textContent=u[b.dataset.k]);$('q').placeholder=u.q;$('q').setAttribute('aria-label',u.q);$('tl').textContent=u.tl;
+$('near').textContent=st.byDist?u.nearOff:u.near;$('ct').textContent=u.ct;$('ask').placeholder=u.ask;$('ask').setAttribute('aria-label',u.ct);$('go').textContent=u.go;
+if(S.length)$('tv').textContent=S[st.up].year_founded==null?u.all:yr(S[st.up].year_founded);
+document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===st.l))}
+function all(){txt();ctl();render();showDetail()}
+document.querySelector('.lang').onclick=e=>{if(e.target.dataset.l){st.l=e.target.dataset.l;all()}};
+$('q').oninput=e=>{st.q=e.target.value;render()};
+$('sl').oninput=e=>{st.up=+e.target.value;txt();render()};
+$('cats').onclick=e=>{const b=e.target.closest('[data-c]');if(b){st.cat=b.dataset.c;ctl();render()}};
+$('trails').onclick=e=>{const a=e.target.closest('a[data-id]');if(a){e.preventDefault();setTab('explore');pick(a.dataset.id);return}
+const b=e.target.closest('[data-t]');if(b){st.tr=st.tr===b.dataset.t?null:b.dataset.t;ctl();render()}};
+$('nav').onclick=e=>{const b=e.target.closest('[data-p]');if(b)setTab(b.dataset.p)};
+$('detail').onclick=e=>{if(e.target.dataset.act==='route')route()};
+$('list').onclick=e=>{const d=e.target.closest('[data-id]');if(d)pick(d.dataset.id)};
+$('near').onclick=async()=>{const u=U[st.l];$('nearmsg').textContent='';
+try{await locate()}catch(e){$('nearmsg').textContent=u.locFail;return}
+st.byDist=!st.byDist;txt();render()};
+async function ask(){const q=$('ask').value.trim(),u=U[st.l];if(!q)return;$('ans').textContent='…';
+try{const r=await api('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,lang:st.l})});
+const names=r.sources.map(sl=>{const s=S.find(x=>x.slug===sl);return s?nm(s):sl});
+const box=$('ans');box.textContent='';
+if(r.answer)box.append(r.answer);else box.append(r.sources.length?u.noKey:u.noMatch);
+if(r.sources.length){const p=document.createElement('div');p.className='meta';p.textContent=(r.answer?u.src:'')+' '+names.join(', ');box.append(p)}
+}catch(e){$('ans').textContent=u.err}}
+$('go').onclick=ask;$('ask').onkeydown=e=>{if(e.key==='Enter')ask()};
+(async()=>{try{[S,T]=await Promise.all([api('/sites'),api('/trails')])}catch(e){$('detail').innerHTML='<p class="empty">'+U.en.err+'</p>';return}
+S.forEach(s=>{M[s.slug]=L.circleMarker([s.lat,s.lon],{radius:8,color:'#fff',weight:2,fillColor:C[s.category].c,fillOpacity:.95}).bindTooltip(esc(s.name_en)).on('click',()=>pick(s.slug))});
+$('sl').max=S.length-1;$('sl').value=S.length-1;st.up=S.length-1;all();setTab('explore');locate().catch(()=>{})})();
+</script>
+</body>
+</html>

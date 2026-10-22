@@ -1,0 +1,511 @@
+{
+ "sites": [
+  {
+   "slug": "chan",
+   "name_en": "Chandraketugarh",
+   "name_bn": "চন্দ্রকেতুগড়",
+   "category": "arc",
+   "year_founded": -300,
+   "region": "North 24 Parganas",
+   "description_en": "An early historic mound known for finely modelled terracotta plaques. It is one of the state’s most important archaeological sites.",
+   "lat": 22.7,
+   "lon": 88.7
+  },
+  {
+   "slug": "tam",
+   "name_en": "Tamralipta (Tamluk)",
+   "name_bn": "তাম্রলিপ্ত (তমলুক)",
+   "category": "arc",
+   "year_founded": -250,
+   "region": "Purba Medinipur",
+   "description_en": "An ancient port town on the Rupnarayan, recorded in the accounts of Chinese pilgrims as a gateway to the sea.",
+   "lat": 22.3,
+   "lon": 87.92
+  },
+  {
+   "slug": "adi",
+   "name_en": "Adina Mosque, Pandua",
+   "name_bn": "আদিনা মসজিদ",
+   "category": "pal",
+   "year_founded": 1375,
+   "region": "Malda",
+   "description_en": "Built in 1373–75 under Sikandar Shah, it was among the largest mosques in the subcontinent.",
+   "lat": 25.17,
+   "lon": 88.17
+  },
+  {
+   "slug": "dak",
+   "name_en": "Dakhil Darwaza, Gaur",
+   "name_bn": "গৌড় – দাখিল দরওয়াজা",
+   "category": "pal",
+   "year_founded": 1425,
+   "region": "Malda",
+   "description_en": "The ceremonial gateway to the old Bengal Sultanate citadel at Gaur, a 15th-century brick landmark.",
+   "lat": 24.87,
+   "lon": 88.13
+  },
+  {
+   "slug": "bis",
+   "name_en": "Rasmancha, Bishnupur",
+   "name_bn": "বিষ্ণুপুর রাসমঞ্চ",
+   "category": "tem",
+   "year_founded": 1600,
+   "region": "Bankura",
+   "description_en": "Built around 1600 by Malla king Bir Hambir. A pyramidal laterite structure that anchors Bishnupur’s terracotta temple tradition.",
+   "lat": 23.07,
+   "lon": 87.32
+  },
+  {
+   "slug": "tho",
+   "name_en": "Thongsa Gompa",
+   "name_bn": "থংসা গুম্ফা",
+   "category": "mon",
+   "year_founded": 1692,
+   "region": "Kalimpong",
+   "description_en": "Founded in 1692 by Bhutanese lamas, it is regarded as the oldest monastery in the Kalimpong area.",
+   "lat": 27.06,
+   "lon": 88.47
+  },
+  {
+   "slug": "kat",
+   "name_en": "Katra Masjid",
+   "name_bn": "কাটরা মসজিদ",
+   "category": "pal",
+   "year_founded": 1724,
+   "region": "Murshidabad",
+   "description_en": "Built in 1723–24 by Murshid Quli Khan, the first Nawab of Bengal, as a mosque and Quranic school.",
+   "lat": 24.19,
+   "lon": 88.27
+  },
+  {
+   "slug": "bhu",
+   "name_en": "Bhutia Busty Monastery",
+   "name_bn": "ভুটিয়া বস্তি মঠ",
+   "category": "mon",
+   "year_founded": 1761,
+   "region": "Darjeeling",
+   "description_en": "A Nyingma monastery first founded in 1761 and moved to its present site in 1861, with views toward Kanchenjunga.",
+   "lat": 27.046,
+   "lon": 88.262
+  },
+  {
+   "slug": "for",
+   "name_en": "Fort William",
+   "name_bn": "ফোর্ট উইলিয়াম",
+   "category": "col",
+   "year_founded": 1781,
+   "region": "Kolkata",
+   "description_en": "A star-shaped fort on the Hooghly, completed in 1781 and still used by the Indian Army.",
+   "lat": 22.558,
+   "lon": 88.336
+  },
+  {
+   "slug": "haz",
+   "name_en": "Hazarduari Palace",
+   "name_bn": "হাজারদুয়ারি প্রাসাদ",
+   "category": "pal",
+   "year_founded": 1837,
+   "region": "Murshidabad",
+   "description_en": "Completed in 1837 for Nawab Nazim Humayun Jah. Famous for its 1,000 doors, of which 900 are real.",
+   "lat": 24.18,
+   "lon": 88.28
+  },
+  {
+   "slug": "stp",
+   "name_en": "St. Paul’s Cathedral",
+   "name_bn": "সেন্ট পলস ক্যাথিড্রাল",
+   "category": "col",
+   "year_founded": 1847,
+   "region": "Kolkata",
+   "description_en": "An Indo-Gothic Anglican cathedral consecrated in 1847, with a tall tower and large stained-glass windows.",
+   "lat": 22.545,
+   "lon": 88.346
+  },
+  {
+   "slug": "ghu",
+   "name_en": "Ghum Monastery",
+   "name_bn": "ঘুম মঠ",
+   "category": "mon",
+   "year_founded": 1850,
+   "region": "Darjeeling",
+   "description_en": "Also called Yiga Choeling, a Gelug monastery founded in 1850 that houses a 15-foot Maitreya statue.",
+   "lat": 27,
+   "lon": 88.26
+  },
+  {
+   "slug": "dks",
+   "name_en": "Dakshineswar Kali Temple",
+   "name_bn": "দক্ষিণেশ্বর কালী মন্দির",
+   "category": "tem",
+   "year_founded": 1855,
+   "region": "Kolkata",
+   "description_en": "Built in 1855 by Rani Rashmoni on the Hooghly bank, closely associated with Sri Ramakrishna.",
+   "lat": 22.655,
+   "lon": 88.357
+  },
+  {
+   "slug": "coo",
+   "name_en": "Cooch Behar Palace",
+   "name_bn": "কোচবিহার রাজবাড়ি",
+   "category": "pal",
+   "year_founded": 1887,
+   "region": "Cooch Behar",
+   "description_en": "An Italianate royal palace completed in 1887 under Maharaja Nripendra Narayan, now a museum.",
+   "lat": 26.32,
+   "lon": 89.45
+  },
+  {
+   "slug": "vic",
+   "name_en": "Victoria Memorial",
+   "name_bn": "ভিক্টোরিয়া মেমোরিয়াল",
+   "category": "col",
+   "year_founded": 1921,
+   "region": "Kolkata",
+   "description_en": "A white-marble museum and monument finished in 1921, set in gardens at the heart of Kolkata.",
+   "lat": 22.545,
+   "lon": 88.343
+  },
+  {
+   "slug": "zan",
+   "name_en": "Zang Dhok Palri Phodang",
+   "name_bn": "জং ধোক পালরি ফোডং",
+   "category": "mon",
+   "year_founded": 1976,
+   "region": "Kalimpong",
+   "description_en": "Also known as Durpin Monastery, consecrated by the 14th Dalai Lama in 1976 on Durpin Dara hill.",
+   "lat": 27.06,
+   "lon": 88.46
+  },
+  {
+   "slug": "tigerhill",
+   "name_en": "Tiger Hill",
+   "name_bn": "টাইগার হিল",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Darjeeling",
+   "lat": 26.9981,
+   "lon": 88.2792,
+   "description_en": "Famous sunrise viewpoint above Ghum at roughly 2,600 m, with views toward Kanchenjunga on clear mornings."
+  },
+  {
+   "slug": "dhr",
+   "name_en": "Darjeeling Himalayan Railway",
+   "name_bn": "দার্জিলিং হিমালয়ান রেলওয়ে",
+   "category": "col",
+   "year_founded": 1881,
+   "region": "Darjeeling",
+   "lat": 27.041,
+   "lon": 88.2663,
+   "description_en": "The narrow-gauge “Toy Train” line, opened in 1881 and listed as a UNESCO World Heritage Site, climbing from the plains to Darjeeling."
+  },
+  {
+   "slug": "sandakphu",
+   "name_en": "Sandakphu",
+   "name_bn": "সান্দাকফু",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Darjeeling",
+   "lat": 27.1013,
+   "lon": 88.001,
+   "description_en": "The highest point in West Bengal at about 3,600 m, a popular trek with views of Everest, Kanchenjunga, Lhotse and Makalu."
+  },
+  {
+   "slug": "mirik",
+   "name_en": "Mirik and Sumendu Lake",
+   "name_bn": "মিরিক",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Darjeeling",
+   "lat": 26.885,
+   "lon": 88.187,
+   "description_en": "A hill town with Sumendu Lake, pine forests and tea gardens, quieter than Darjeeling."
+  },
+  {
+   "slug": "dzoo",
+   "name_en": "Darjeeling Zoo",
+   "name_bn": "দার্জিলিং চিড়িয়াখানা",
+   "category": "nat",
+   "year_founded": 1958,
+   "region": "Darjeeling",
+   "lat": 27.052,
+   "lon": 88.254,
+   "description_en": "Padmaja Naidu Himalayan Zoological Park, opened in 1958 and known for its red panda and snow leopard work."
+  },
+  {
+   "slug": "deolo",
+   "name_en": "Deolo Hill",
+   "name_bn": "দেওলো হিল",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Kalimpong",
+   "lat": 27.0657,
+   "lon": 88.4667,
+   "description_en": "A hill with viewpoints over Kalimpong town, forests and the Teesta valley."
+  },
+  {
+   "slug": "jaldapara",
+   "name_en": "Jaldapara National Park",
+   "name_bn": "জলদাপাড়া জাতীয় উদ্যান",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Alipurduar",
+   "lat": 26.65,
+   "lon": 89.3333,
+   "description_en": "Dooars park known for the Indian one-horned rhinoceros, with elephant safaris."
+  },
+  {
+   "slug": "gorumara",
+   "name_en": "Gorumara National Park",
+   "name_bn": "গরুমারা জাতীয় উদ্যান",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Jalpaiguri",
+   "lat": 26.7,
+   "lon": 88.8,
+   "description_en": "Dooars park of grassland and forest, home to rhinos, elephants and gaur."
+  },
+  {
+   "slug": "buxa",
+   "name_en": "Buxa Tiger Reserve",
+   "name_bn": "বক্সা ব্যাঘ্র প্রকল্প",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Alipurduar",
+   "lat": 26.7,
+   "lon": 89.55,
+   "description_en": "Forest reserve on the Bhutan border with hill trails and the old Buxa Fort."
+  },
+  {
+   "slug": "sundarbans",
+   "name_en": "Sundarbans National Park",
+   "name_bn": "সুন্দরবন জাতীয় উদ্যান",
+   "category": "nat",
+   "year_founded": null,
+   "region": "South 24 Parganas",
+   "lat": 21.9497,
+   "lon": 88.9,
+   "description_en": "A mangrove delta and UNESCO World Heritage Site, home of the Bengal tiger, explored by boat."
+  },
+  {
+   "slug": "digha",
+   "name_en": "Digha Beach",
+   "name_bn": "দীঘা",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Purba Medinipur",
+   "lat": 21.6266,
+   "lon": 87.5499,
+   "description_en": "One of Bengal’s most visited seaside resorts, with a long, shallow beach."
+  },
+  {
+   "slug": "mandarmani",
+   "name_en": "Mandarmani Beach",
+   "name_bn": "মন্দারমণি",
+   "category": "nat",
+   "year_founded": null,
+   "region": "Purba Medinipur",
+   "lat": 21.6667,
+   "lon": 87.75,
+   "description_en": "A quiet beach town known for its long, firm beach."
+  },
+  {
+   "slug": "bakkhali",
+   "name_en": "Bakkhali",
+   "name_bn": "বকখালি",
+   "category": "nat",
+   "year_founded": null,
+   "region": "South 24 Parganas",
+   "lat": 21.5667,
+   "lon": 88.2667,
+   "description_en": "A quiet beach resort at the edge of the Sundarbans, with casuarina trees and nearby Henry’s Island."
+  },
+  {
+   "slug": "shantiniketan",
+   "name_en": "Santiniketan",
+   "name_bn": "শান্তিনিকেতন",
+   "category": "cul",
+   "year_founded": 1901,
+   "region": "Birbhum",
+   "lat": 23.6833,
+   "lon": 87.6833,
+   "description_en": "Rabindranath Tagore’s university town, begun as a school in 1901 and inscribed as a UNESCO World Heritage Site in 2023."
+  },
+  {
+   "slug": "howrah",
+   "name_en": "Howrah Bridge",
+   "name_bn": "হাওড়া ব্রিজ",
+   "category": "col",
+   "year_founded": 1943,
+   "region": "Howrah",
+   "lat": 22.5851,
+   "lon": 88.3468,
+   "description_en": "A steel cantilever bridge over the Hooghly, opened in 1943 and among the busiest in the world."
+  },
+  {
+   "slug": "indmus",
+   "name_en": "Indian Museum",
+   "name_bn": "ভারতীয় জাদুঘর",
+   "category": "cul",
+   "year_founded": 1814,
+   "region": "Kolkata",
+   "lat": 22.5578,
+   "lon": 88.3512,
+   "description_en": "Founded in 1814, the oldest and largest museum in India."
+  },
+  {
+   "slug": "jorasanko",
+   "name_en": "Jorasanko Thakur Bari",
+   "name_bn": "জোড়াসাঁকো ঠাকুরবাড়ি",
+   "category": "cul",
+   "year_founded": null,
+   "region": "Kolkata",
+   "lat": 22.5826,
+   "lon": 88.3583,
+   "description_en": "The ancestral home of the Tagore family and birthplace of Rabindranath Tagore, now a museum."
+  },
+  {
+   "slug": "marble",
+   "name_en": "Marble Palace",
+   "name_bn": "মার্বেল প্যালেস",
+   "category": "pal",
+   "year_founded": 1835,
+   "region": "Kolkata",
+   "lat": 22.5831,
+   "lon": 88.3637,
+   "description_en": "A Kolkata mansion from 1835 filled with European art, statues and chandeliers."
+  },
+  {
+   "slug": "sciencecity",
+   "name_en": "Science City",
+   "name_bn": "বিজ্ঞান নগরী",
+   "category": "cul",
+   "year_founded": 1997,
+   "region": "Kolkata",
+   "lat": 22.5397,
+   "lon": 88.3965,
+   "description_en": "India’s largest science centre, opened in 1997."
+  },
+  {
+   "slug": "belur",
+   "name_en": "Belur Math",
+   "name_bn": "বেলুড় মঠ",
+   "category": "tem",
+   "year_founded": 1938,
+   "region": "Howrah",
+   "lat": 22.6322,
+   "lon": 88.3556,
+   "description_en": "Headquarters of the Ramakrishna Math and Mission, with architecture that blends Hindu, Islamic and Christian motifs."
+  },
+  {
+   "slug": "kalighat",
+   "name_en": "Kalighat Kali Temple",
+   "name_bn": "কালীঘাট কালী মন্দির",
+   "category": "tem",
+   "year_founded": 1809,
+   "region": "Kolkata",
+   "lat": 22.5206,
+   "lon": 88.3425,
+   "description_en": "One of the Shakti Peethas and among Kolkata’s most important temples; the present building dates to the early 19th century."
+  },
+  {
+   "slug": "tarapith",
+   "name_en": "Tarapith",
+   "name_bn": "তারাপীঠ",
+   "category": "tem",
+   "year_founded": null,
+   "region": "Birbhum",
+   "lat": 24.1176,
+   "lon": 87.7793,
+   "description_en": "A Shakti Peetha and Tantric pilgrimage site dedicated to Goddess Tara, beside a cremation ground on the Dwarka river."
+  },
+  {
+   "slug": "mayapur",
+   "name_en": "Mayapur",
+   "name_bn": "মায়াপুর",
+   "category": "tem",
+   "year_founded": null,
+   "region": "Nadia",
+   "lat": 23.4231,
+   "lon": 88.3883,
+   "description_en": "Headquarters of ISKCON, with a large temple complex on the Ganga."
+  },
+  {
+   "slug": "imambara",
+   "name_en": "Nizamat Imambara",
+   "name_bn": "নিজামত ইমামবাড়া",
+   "category": "pal",
+   "year_founded": 1847,
+   "region": "Murshidabad",
+   "lat": 24.1832,
+   "lon": 88.2701,
+   "description_en": "An imambara in Murshidabad built in 1847 by Nawab Nazim Mansur Ali Khan."
+  }
+ ],
+ "trails": [
+  {
+   "slug": "t1",
+   "name_en": "Hill monasteries",
+   "name_bn": "পাহাড়ের মঠ",
+   "stops": [
+    "ghu",
+    "bhu",
+    "tho",
+    "zan"
+   ]
+  },
+  {
+   "slug": "t2",
+   "name_en": "Gaur to Murshidabad",
+   "name_bn": "গৌড় থেকে মুর্শিদাবাদ",
+   "stops": [
+    "adi",
+    "dak",
+    "kat",
+    "haz"
+   ]
+  },
+  {
+   "slug": "t3",
+   "name_en": "Colonial Kolkata",
+   "name_bn": "ঔপনিবেশিক কলকাতা",
+   "stops": [
+    "for",
+    "stp",
+    "vic",
+    "dks"
+   ]
+  },
+  {
+   "slug": "t4",
+   "name_en": "Kolkata culture",
+   "name_bn": "কলকাতার সংস্কৃতি",
+   "stops": [
+    "jorasanko",
+    "marble",
+    "indmus",
+    "sciencecity"
+   ]
+  },
+  {
+   "slug": "t5",
+   "name_en": "Dooars wildlife",
+   "name_bn": "ডুয়ার্সের বন্যপ্রাণ",
+   "stops": [
+    "gorumara",
+    "jaldapara",
+    "buxa"
+   ]
+  },
+  {
+   "slug": "t6",
+   "name_en": "Sacred Bengal",
+   "name_bn": "পবিত্র বাংলা",
+   "stops": [
+    "kalighat",
+    "belur",
+    "mayapur",
+    "tarapith"
+   ]
+  }
+ ]
+}
